@@ -45,7 +45,7 @@ namespace SmartdoorAdapter.Tests.Util
             }
         }
 
-        // ML check if the tests need to return a task
+        // TODO: check if the tests need to return a task
         public static async Task RunTestWithCustomClient(Func<HttpContext, WebSocket, Task> serverTests, Func<Uri, Task> clientTests)
         {
             try

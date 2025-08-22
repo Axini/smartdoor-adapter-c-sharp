@@ -17,10 +17,10 @@ _Version 0.91_
 _Version 0.9_
 
 * Add/Updated sequence - and class diagram
-* Verify all todo (ML) remarks have been addressed 
-* Increase code documentation 
+* Verify all todo remarks have been addressed
+* Increase code documentation
 * Increase test coverage, specifically add unit tests for the core
-* Create sequence diagrams of the .net version 
+* Create sequence diagrams of the .net version
 * Move Kestrel to its own namespace matching the original.
 * Clean up code (esp. the managedsocket), review first.
 * Verify if the output in AMP is the same in the java adapter and .net adapter.
@@ -33,16 +33,16 @@ _Version 0.9_
   called while listening and null the connection. The ManagerWebsocket will need to abort/stop connecting/listening before closing to handle this
   gracefully.
 * Move broker into its own class/interface instead of exposing all implementation details to the ochestration (AdapterCore)
-* Implement handle config unit tests 
+* Implement handle config unit tests
 * Setup test cases, see if there's a mocking solution for the server. Found a local implementation for Kestral.
 * Finalize running java reference project with Java Adapter + Java Sut
 * Implement & test c# connect to Mocking & Axini
 * Implement handler start unit test
-	
+
 
 Activities
 ----------
-- 14.11.24: Finalize first pass code documentation. 
+- 14.11.24: Finalize first pass code documentation.
 - 12.11.24: Clean up managedsocket. Tested under Ubuntu 24.
 - 10.11.24: Adressed all different green paths and red paths, added readme
 - 07.11.24: Moved broker to its own class

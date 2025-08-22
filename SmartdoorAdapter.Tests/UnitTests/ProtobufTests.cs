@@ -50,10 +50,10 @@ namespace SmartdoorAdapter.Tests.UnitTests
 
 
         /// <summary>
-        /// The timestamp between .net and AMP doesn't seem to match using 
+        /// The timestamp between .net and AMP doesn't seem to match using
         /// timeStamp = (ulong)DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-        /// The timestamp the AMP is using is actually nano secs.  
-        /// ML: Update this test
+        /// The timestamp the AMP is using is actually nano secs.
+        /// TODO: Update this test
         /// </summary>
         [TestMethod]
         public void MessageResponseLabelTesT()

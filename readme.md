@@ -87,4 +87,4 @@ These variables can be passed to the adapter in two ways:
 ## Current Limitations
 
 - Limited unit and integration tests are available.
-- There are various issues which are not clear yet. These are marked with the initials ML throughout the code.
+- There are various issues which are not clear yet. These are marked with TODO throughout the code.
