@@ -1,1 +1,0 @@
-# smartdoor-adapter-c-

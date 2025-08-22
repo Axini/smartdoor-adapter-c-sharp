@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="log4net.config" />
+    <None Remove="Proto\announcement.proto" />
+    <None Remove="Proto\configuration.proto" />
+    <None Remove="Proto\label.proto" />
+    <None Remove="Proto\message.proto" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Protobuf" Version="3.28.2" />
+    <PackageReference Include="Grpc.Net.Client" Version="2.66.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.67.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="log4net" Version="3.0.2" />
+    <PackageReference Include="Microsoft.Net.Http.Headers" Version="8.0.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="Proto\announcement.proto" GrpcServices="Both" />
+    <Protobuf Include="Proto\configuration.proto" GrpcServices="Both" />
+    <Protobuf Include="Proto\label.proto" />
+    <Protobuf Include="Proto\message.proto" />
+  </ItemGroup>
+
+</Project>

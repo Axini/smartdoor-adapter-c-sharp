@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "SmartdoorAdapter.Tests": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:58402;http://localhost:58403"
+    }
+  }
+}
