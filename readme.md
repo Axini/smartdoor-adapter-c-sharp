@@ -36,36 +36,36 @@ In addition to the C# implementation, you will need:
    (Refer to the SUT documentation for specifics.)
 
 #### Running the .NET Adapter
-  The adapter requires three variables to run (regardless of OS)
-      - **name**: The adapter name as it will appear in AMP.
-      - **url**: The AMP endpoint (a websocket address, e.g., `wss://some.endpoint.axini.com:123/adapters`).
-      - **token**: An API token obtained from the AMP.
+The adapter requires three variables to run (regardless of OS):
+  - **name**: The adapter name as it will appear in AMP.
+  - **url**: The AMP endpoint (a websocket address, e.g., `wss://some.endpoint.axini.com:123/adapters`).
+  - **token**: An API token obtained from the AMP.
 
-  These variables can be passed to the adapter in two ways:
-    - **Option 1**: CLI parameters
-      When running the adapter pass the variables like so: `SmartdoorAdapter <name> <url> <apikey>`
-    - **Option 2**: Environment Variables
-      The adapter can be run without parameters by setting the following environment variables:
-      - `AXINI_ADAPTER_NAME`
-      - `AXINI_AMP_HOST`
-      - `AXINI_API_KEY`
+These variables can be passed to the adapter in two ways:
+  - **Option 1**: CLI parameters
+    When running the adapter pass the variables like so: `SmartdoorAdapter <name> <url> <apikey>`
+  - **Option 2**: Environment Variables
+    The adapter can be run without parameters by setting the following environment variables:
+    - `AXINI_ADAPTER_NAME`
+    - `AXINI_AMP_HOST`
+    - `AXINI_API_KEY`
 
 ##### Running on Windows
   - Using standard windows functionality, run the `.exe` (with parameters or with environment variables), e.g:
-    ```shell
-    SmartdoorAdapter.exe <name> <url> <token>
-    ```
+  ```shell
+  SmartdoorAdapter.exe <name> <url> <token>
+  ```
 
   - Using WSL
     1. Optionally allow for mirrored mode in WSL.
         - Create a .wslconfig in the user's home directory (C:\Users\$(USER_NAME))
-        - Add
+        - Add:
         ```shell
         [wsl2]
         networkingMode=mirrored
          ```
 
-    2. [Install dotnet on WSL, link](https://learn.microsoft.com/en-us/dotnet/core/install/linux-ubuntu?source=post_page-----515e8160bae6--------------------------------#supported-distributions) The current adapter is tested with .NET 8.0 during the sudo apt install <package-name> step. .NET 9.x has NOT been tested.
+    2. [Install dotnet on WSL](https://learn.microsoft.com/en-us/dotnet/core/install/linux-ubuntu?source=post_page-----515e8160bae6--------------------------------#supported-distributions). The current adapter is tested with .NET 8.0 during the sudo apt install <package-name> step. .NET 9.x has NOT been tested.
 
     3. Follow Running on Linux instructions
 
@@ -77,12 +77,11 @@ In addition to the C# implementation, you will need:
   - Run the project: `dotnet run --project ./SmartdoorAdapter <name> <url> <token>`
     - Alternatively add environment variables to your `~/.bashrc` (omit the parameters above if you use env vars)
     - Example bashrc additions:
-    ```bashrc
-  ```bash
-  export AXINI_ADATPER_NAME="adapter_name"
-  export AXINI_API_KEY="axini_..."
-  export AXINI_AMP_HOST="wss://some-app.axini.com:443/adapters"
-  ```
+    ```bash
+    export AXINI_ADATPER_NAME="adapter_name"
+    export AXINI_API_KEY="axini_..."
+    export AXINI_AMP_HOST="wss://some-app.axini.com:443/adapters"
+    ```
 
   - Optionally one can run the test suite with `dotnet test`
 ## Current Limitations
