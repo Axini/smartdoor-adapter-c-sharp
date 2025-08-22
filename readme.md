@@ -1,5 +1,5 @@
 
-# Smartdoor Adapter.NET v0.9
+# smartdoor-adapter-c-sharp
 
 ## Description
 
