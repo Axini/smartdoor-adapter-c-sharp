@@ -117,7 +117,7 @@ namespace SmartdoorAdapter.Adapter
         }
 
         /// <summary>
-        /// Create a response Label with *no* parameters. 
+        /// Create a response Label with *no* parameters.
         /// </summary>
         /// <param name="name"></param>
         /// <param name="channel"></param>
@@ -133,7 +133,7 @@ namespace SmartdoorAdapter.Adapter
         }
 
         /// <summary>
-        /// Create a Label with the given properties based on a clone of the label 
+        /// Create a Label with the given properties based on a clone of the label
         /// parameter.
         /// </summary>
         /// <param name="label">Non-null label which will be cloned</param>
@@ -169,7 +169,7 @@ namespace SmartdoorAdapter.Adapter
         }
 
         /// <summary>
-        /// Create a clone of the given protobuf Label and sets its physicalLabel and timestamp. 
+        /// Create a clone of the given protobuf Label and sets its physicalLabel and timestamp.
         /// </summary>
         /// <param name="label"></param>
         /// <param name="physicalLabel"></param>

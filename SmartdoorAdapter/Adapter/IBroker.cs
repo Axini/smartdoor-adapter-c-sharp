@@ -7,9 +7,9 @@ using SmartdoorAdapter.Proto;
 namespace SmartdoorAdapter.Adapter
 {
     /// <summary>
-    /// The BrokerConnection component manages the WebSocket connection to AMP. 
-    /// It performs callbacks on the AdapterCore to signal when the WebSocket connection 
-    /// was opened or closed and when a message is received from AMP. 
+    /// The BrokerConnection component manages the WebSocket connection to AMP.
+    /// It performs callbacks on the AdapterCore to signal when the WebSocket connection
+    /// was opened or closed and when a message is received from AMP.
     /// (https://course02.axini.com/docs/tech/adapters/plugin_adapters.html#brokerconnection)
     /// </summary>
     public interface IBroker
@@ -31,7 +31,7 @@ namespace SmartdoorAdapter.Adapter
         event EventHandler<Message>? OnMessage;
 
         /// <summary>
-        /// Connects to the AMP 
+        /// Connects to the AMP
         /// </summary>
         /// <returns>true, connection was successful, false otherwise.</returns>
         bool Connect();
@@ -74,7 +74,7 @@ namespace SmartdoorAdapter.Adapter
         Task SendResponseMessage(string channel, string sutMessage, ByteString physicalLabel);
 
         /// <summary>
-        /// Send a stimulus to the AMP correlating to a stimulus send to 
+        /// Send a stimulus to the AMP correlating to a stimulus send to
         /// the SUT.
         /// </summary>
         /// <param name="label"></param>
@@ -84,7 +84,7 @@ namespace SmartdoorAdapter.Adapter
         Task SendStimulus(Label label, ByteString physicalLabel, ulong correlationId);
 
         /// <summary>
-        /// Close the broker and connection to the AMP. 
+        /// Close the broker and connection to the AMP.
         /// </summary>
         /// <param name="closeStatus"></param>
         /// <param name="message"></param>

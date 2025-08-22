@@ -4,8 +4,8 @@ using SmartdoorAdapter.Proto;
 namespace SmartdoorAdapter.Adapter
 {
     /// <summary>
-    /// The Handler component implements a common interface called by the AdapterCore. These 
-    /// callbacks handle the domain specific aspects of connecting, stimulating and observing the 
+    /// The Handler component implements a common interface called by the AdapterCore. These
+    /// callbacks handle the domain specific aspects of connecting, stimulating and observing the
     /// system under test.
     /// </summary>
 
@@ -44,7 +44,7 @@ namespace SmartdoorAdapter.Adapter
 
         /// <summary>
         /// Current configuration set in the handler. This should
-        /// by default return a configuration. 
+        /// by default return a configuration.
         /// </summary>
         Configuration? Configuration
         {
@@ -59,7 +59,7 @@ namespace SmartdoorAdapter.Adapter
 
         /// <summary>
         /// Stop testing.
-        /// </summary>      
+        /// </summary>
         void Stop();
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace SmartdoorAdapter.Adapter
         Task Reset();
 
         /// <summary>
-        /// Stimulate the System Under Test and return the physical label. 
+        /// Stimulate the System Under Test and return the physical label.
         /// </summary>
         /// <param name="stimulus"></param>
         /// <returns></returns>

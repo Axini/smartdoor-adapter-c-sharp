@@ -24,11 +24,11 @@ namespace SmartdoorAdapter.Adapter
         #region --- Con/Destructors -----------------------------------------------------------------------------------
 
         /// <summary>
-        /// Creates a new BrokerConnection 
+        /// Creates a new BrokerConnection
         /// </summary>
         /// <param name="uri">Non null uri of the AMP.</param>
         /// <param name="apiKey">Optional basic auth token used in the Authority header.</param>
-        /// <param name="maxConnectionAttempts">Maximum number of attempts to connect to the AMP before aborting. Set to 
+        /// <param name="maxConnectionAttempts">Maximum number of attempts to connect to the AMP before aborting. Set to
         /// 0 or less to have no limit. The default is 1.</param>
         /// <param name="defaultTimeout">Default connection timeout in ms. Defaults to 2000ms</param>
         public BrokerConnection(Uri uri, string? apiKey = null, int maxConnectionAttempts = 1, int defaultTimeout = 2000)

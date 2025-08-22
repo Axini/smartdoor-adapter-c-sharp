@@ -29,50 +29,62 @@ In addition to the C# implementation, you will need:
 ### Steps to Run:
 
 
-1. Build the standalone SUT:
+#### Build the standalone SUT:
    ```shell
    java -jar target/standalone-smartdoor-0.1-jar-with-dependencies.jar
    ```
    (Refer to the SUT documentation for specifics.)
 
-2. Start the .NET Adapter on Windows:
-   - **Option 1:** Run the full command line:
-     ```shell
-     SmartdoorAdapter.exe <name> <url> <token>
-     ```
-     - **name**: The adapter name as it will appear in AMP.
-     - **url**: The AMP endpoint (a websocket address, e.g., `wss://some.endpoint.axini.com:123/adapters`).
-     - **token**: A simple auth token obtained from the AMP/adapters site.
+#### Running the .NET Adapter
+  The adapter requires three variables to run (regardless of OS)
+      - **name**: The adapter name as it will appear in AMP.
+      - **url**: The AMP endpoint (a websocket address, e.g., `wss://some.endpoint.axini.com:123/adapters`).
+      - **token**: An API token obtained from the AMP.
 
-   - **Option 2:** Define the environment variables `AXINI_ADAPTER_NAME`, `AXINI_AUTH_TOKEN` and `AXINI_AMP_HOST`, 
-     then run:
-     ```shell
-     SmartdoorAdapter.exe
-     ```
+  These variables can be passed to the adapter in two ways:
+    - **Option 1**: CLI parameters
+      When running the adapter pass the variables like so: `SmartdoorAdapter <name> <url> <apikey>`
+    - **Option 2**: Environment Variables
+      The adapter can be run without parameters by setting the following environment variables:
+      - `AXINI_ADAPTER_NAME`
+      - `AXINI_AMP_HOST`
+      - `AXINI_API_KEY`
 
- 3. Run the .NET Adapter on wsl (this should work under Ubuntu 24.*):
- 
-    - Optionally allow for mirrored mode in WSL. 
+##### Running on Windows
+  - Using standard windows functionality, run the `.exe` (with parameters or with environment variables), e.g:
+    ```shell
+    SmartdoorAdapter.exe <name> <url> <token>
+    ```
+
+  - Using WSL
+    1. Optionally allow for mirrored mode in WSL.
         - Create a .wslconfig in the user's home directory (C:\Users\$(USER_NAME))
-        - Add 
-        ```shell 
+        - Add
+        ```shell
         [wsl2]
         networkingMode=mirrored
          ```
-    
-    - [Install dotnet on WSL, link](https://learn.microsoft.com/en-us/dotnet/core/install/linux-ubuntu?source=post_page-----515e8160bae6--------------------------------#supported-distributions)
-      The current adapter is tested with .NET 8.0 during the `sudo apt install <package-name>` step. .NET 9.x has NOT been tested.
-        
-    - Clone the project: git clone https://github.com/pointlesspun/SmartdoorAdapter.git
-    
-    - Go to the solution directory. 
-    
-      - Restore the dependencies: `dotnet restore`
-      - Build the project: `dotnet build`
-      - Set the environment variables in ~/.bashrc
-      - Run the project: `dotnet run --project ./SmartdoorAdapter`
-      - Optionally one can run the test suite with `dotnet test`
 
+    2. [Install dotnet on WSL, link](https://learn.microsoft.com/en-us/dotnet/core/install/linux-ubuntu?source=post_page-----515e8160bae6--------------------------------#supported-distributions) The current adapter is tested with .NET 8.0 during the sudo apt install <package-name> step. .NET 9.x has NOT been tested.
+
+    3. Follow Running on Linux instructions
+
+##### Running on Linux (Ubuntu 24.04)
+  - Install dotnet-sdk. The package can be installed via apt with the following command: `sudo apt install dotnet-sdk-8.0`. .NET 9.x has NOT been tested.
+  - Change directory to this repo e.g: `cd smartdoor-adapter-c-sharp`.
+  - Restore the dependencies: `dotnet restore`
+  - Build the project: `dotnet build`
+  - Run the project: `dotnet run --project ./SmartdoorAdapter <name> <url> <token>`
+    - Alternatively add environment variables to your `~/.bashrc` (omit the parameters above if you use env vars)
+    - Example bashrc additions:
+    ```bashrc
+  ```bash
+  export AXINI_ADATPER_NAME="adapter_name"
+  export AXINI_API_KEY="axini_..."
+  export AXINI_AMP_HOST="wss://some-app.axini.com:443/adapters"
+  ```
+
+  - Optionally one can run the test suite with `dotnet test`
 ## Current Limitations
 
 - Limited unit and integration tests are available.
