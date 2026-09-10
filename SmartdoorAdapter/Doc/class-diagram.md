@@ -14,7 +14,7 @@ It simplifies the interface via an event-driven approach, handles the state mana
 
 For more information about the sequence of interactions see the [associated sequence diagram](./dotnet-adapter-sequence.md).
 For more information on the overall Adapter design, see the [Axini documentation](https://course02.axini.com/docs/tech/adapters/index.html).
-For information on how to build and run the system see the [readme](../../readme.md).
+For information on how to build and run the system see the [readme](../../README.md).
 
 ```mermaid
 ---

@@ -3,7 +3,7 @@
 
 For more information about the classes involved see the [associated classdiagram](./class-diagram.md).
 For more information on the overall Adapter design, see the [Axini documentation](https://course02.axini.com/docs/tech/adapters/index.html).
-For information on how to build and run the system see the [readme](../../readme.md).
+For information on how to build and run the system see the [readme](../../README.md).
 
 ```mermaid
 

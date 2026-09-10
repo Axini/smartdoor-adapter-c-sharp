@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Convenience script to start the SmartDoor adapter.
+
+PROJECT=./SmartdoorAdapter
+
+HOSTNAME=$(hostname)
+NAME=smartdoor-adapter-c-sharp@${HOSTNAME}
+URL=
+TOKEN=
+
+dotnet run --project ${PROJECT} ${NAME} ${URL} ${TOKEN}
