@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartdoorAdapter.Tests", "S
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E036F3EA-C94C-4782-8618-6001555B1C53}"
 	ProjectSection(SolutionItems) = preProject
-		readme.md = readme.md
+		README.md = README.md
 	EndProjectSection
 EndProject
 Global

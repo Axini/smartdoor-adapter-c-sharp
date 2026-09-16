@@ -1,6 +1,7 @@
 using Google.Protobuf;
 using Microsoft.Net.Http.Headers;
-using Moq;
+using NSubstitute;
+using NSubstitute.ReceivedExtensions;
 using SmartdoorAdapter.Adapter;
 using SmartdoorAdapter.Proto;
 using SmartdoorAdapter.Tests.Util;
@@ -61,7 +62,7 @@ namespace SmartdoorAdapter.Tests.IntegrationTests
                     var handlerMock = CreateHandlerMock();
                     // not mocking the broker we actually want to model the behaviour of the AMP with these tests
                     var broker = new BrokerConnection(uri, apiKey: testAuthToken, defaultTimeout: 3000);
-                    var adapter = new AdapterCore(coreName, broker, handlerMock.Object);
+                    var adapter = new AdapterCore(coreName, broker, handlerMock);
 
                     try
                     {
@@ -139,7 +140,7 @@ namespace SmartdoorAdapter.Tests.IntegrationTests
 
                 // not mocking the broker we actually want to model the behaviour of the AMP with these tests
                 var broker = new BrokerConnection(uri, apiKey: testAuthToken, defaultTimeout: 3000);
-                var adapter = new AdapterCore(coreName, broker, handlerMock.Object);
+                var adapter = new AdapterCore(coreName, broker, handlerMock);
 
                 try
                 {
@@ -154,15 +155,14 @@ namespace SmartdoorAdapter.Tests.IntegrationTests
                     // make sure the adapter reaches the start method
                     TaskUtil.WaitUntil(() => adapter.State == AdapterCoreState.Ready, timeStep: 250);
 
-                    handlerMock.Verify(handler => handler.Start(), Times.Once());
+                    handlerMock.Received(1).Start();
 
-                    handlerMock.VerifySet(handler => handler.Configuration =
-                        It.Is<Configuration>(conf => conf != null
+                    handlerMock.Received(1).Configuration =
+                        Arg.Is<Configuration>(conf => conf != null
                             && conf.Items.Count == 1
                             && conf.Items[0].Key == ampConfig.Items[0].Key
                             && conf.Items[0].Description == ampConfig.Items[0].Description
-                            && conf.Items[0].String == ampConfig.Items[0].String)
-                    , Times.Once());
+                            && conf.Items[0].String == ampConfig.Items[0].String);
                 }
                 catch (AssertFailedException)
                 {
@@ -230,11 +230,11 @@ namespace SmartdoorAdapter.Tests.IntegrationTests
             (uri) =>
             {
                 var handlerMock = CreateHandlerMock();
-                handlerMock.Setup(m => m.Start()).ReturnsAsync(true);
+                handlerMock.Start().Returns(Task.FromResult(true));
 
                 // not mocking the broker we actually want to model the behaviour of the AMP with these tests
                 var broker = new BrokerConnection(uri, apiKey: testAuthToken, defaultTimeout: 3000);
-                var adapter = new AdapterCore(coreName, broker, handlerMock.Object);
+                var adapter = new AdapterCore(coreName, broker, handlerMock);
 
                 try
                 {
@@ -244,7 +244,7 @@ namespace SmartdoorAdapter.Tests.IntegrationTests
 
                     TaskUtil.WaitUntil(() => serverIteration >= maxIterations, 250);
 
-                    handlerMock.Verify(handler => handler.Start(), Times.AtLeast(maxIterations));
+                    handlerMock.Received(Quantity.Within(maxIterations, int.MaxValue)).Start();
                 }
                 catch (Exception ex)
                 {
@@ -440,13 +440,12 @@ namespace SmartdoorAdapter.Tests.IntegrationTests
                 var receiveLock = new object();
                 var rng = new Random();
                 var handlerMock = CreateHandlerMock();
-                handlerMock.Setup(m => m.Start()).ReturnsAsync(true);
-                handlerMock.Setup(m => m.Stimulate(It.IsAny<string>()))
-                    .Callback<string>(async (value) =>
+                handlerMock.Start().Returns(Task.FromResult(true));
+                handlerMock.Stimulate(Arg.Do<string>(async (value) =>
                     {
                         // store the stimili and fake a delayed response
                         var delay = 0;
-                        lock (receiveLock) 
+                        lock (receiveLock)
                         {
                             receivedStimuli.Add(value);
                             delay = rng.Next(100, 1000);
@@ -455,15 +454,15 @@ namespace SmartdoorAdapter.Tests.IntegrationTests
                         // wait a random amount of time
                         await Task.Delay(delay);
 
-                        handlerMock.Raise(m => m.OnResponse += null, handlerMock.Object, $"{value}-response");
-                    });
+                        handlerMock.OnResponse += Raise.Event<EventHandler<string>>(handlerMock, $"{value}-response");
+                    }));
 
                 var broker = new BrokerConnection(uri,
                     apiKey: testAuthToken,
                     maxConnectionAttempts: 10,
                     defaultTimeout: 5000);
 
-                var adapter = new AdapterCore(coreName, broker, handlerMock.Object);
+                var adapter = new AdapterCore(coreName, broker, handlerMock);
 
                 try
                 {
@@ -496,22 +495,18 @@ namespace SmartdoorAdapter.Tests.IntegrationTests
         /// Utility method to create a mock of the handler
         /// </summary>
         /// <returns></returns>
-        private static Mock<IHandler> CreateHandlerMock()
+        private static IHandler CreateHandlerMock()
         {
-            var handlerMock = new Mock<IHandler>();
+            var handlerMock = Substitute.For<IHandler>();
             var supportedLabels = SmartdoorHandler.CreateSupportedLabels();
             var handlerConfig = AxiniProtobuf.CreateConfiguration([
                                     AxiniProtobuf.CreateItem("url", "WebSocket URL of SUT", "ws://localhost:3001")]);
 
-            // handlerMock.SetupAllProperties();
-            handlerMock.Setup(m => m.Channel).Returns(SmartdoorHandler.DefaultChannel);
-            handlerMock.Setup(m => m.SupportedLabels).Returns(supportedLabels);
-            handlerMock.Setup(m => m.Configuration).Returns(handlerConfig);
-            handlerMock.Setup(m => m.ToPhysicalLabel(It.IsAny<string>()))
-                    .ReturnsAsync((string value) =>
-                    {
-                        return ByteString.CopyFromUtf8(value);
-                    });
+            handlerMock.Channel.Returns(SmartdoorHandler.DefaultChannel);
+            handlerMock.SupportedLabels.Returns(supportedLabels);
+            handlerMock.Configuration.Returns(handlerConfig);
+            handlerMock.ToPhysicalLabel(Arg.Any<string>())
+                    .Returns(callInfo => Task.FromResult(ByteString.CopyFromUtf8(callInfo.Arg<string>())));
 
             return handlerMock;
         }
